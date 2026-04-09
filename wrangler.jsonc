@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "family-photo-diary",
+  "compatibility_date": "2026-04-09",
+  "pages_build_output_dir": "./dist",
+  "compatibility_flags": ["nodejs_compat"],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "family-photo-diary-db",
+      "database_id": "local-dev-db"
+    }
+  ]
+}
