@@ -303,8 +303,9 @@ const App = {
 
     if (firstPhoto) {
       const src = this.demoPhotos[firstPhoto.fileName] || firstPhoto.thumbnail || '/static/placeholder.svg';
+      const safeLocation = (record.location || '').replace(/'/g, "\\'");
       photoHTML = `
-        <div class="card-photo" onclick="App.showPhotoDetail('${src}', '${record.location || ''}', '${record.record_date}')">
+        <div class="card-photo" onclick="App.showPhotoDetail('${src}', '${safeLocation}', '${record.record_date}')">
           <img src="${src}" alt="" loading="lazy">
         </div>
       `;
@@ -523,8 +524,9 @@ const App = {
       const photo = this.galleryPhotos[i];
       if (photo) {
         const src = this.demoPhotos[photo.file_name] || photo.thumbnail_data || '/static/placeholder.svg';
+        const safeLocation = (photo.location || '').replace(/'/g, "\\'");
         html += `
-          <div class="gallery-cell" onclick="App.showPhotoDetail('${src}', '${photo.location || ''}', '${photo.record_date}')">
+          <div class="gallery-cell" onclick="App.showPhotoDetail('${src}', '${safeLocation}', '${photo.record_date}')">
             <img src="${src}" alt="" loading="lazy">
           </div>
         `;
@@ -551,8 +553,10 @@ const App = {
     // Update buttons
     document.querySelectorAll('.gallery-toggle button').forEach(btn => {
       btn.classList.remove('active');
+      if (btn.textContent.includes(mode === 3 ? '三' : mode === 6 ? '六' : '九')) {
+        btn.classList.add('active');
+      }
     });
-    event.target.classList.add('active');
   },
 
   // ===== RECALL PAGE =====
